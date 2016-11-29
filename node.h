@@ -4,10 +4,10 @@
 using namespace std;
 
 
-stuct node {
+struct node {
     string firstName;
     string lastName;
-
-    vector<>
-
-}
+    string ID;
+    //vector<>
+    node(string f, string l, string id) : firstName(f), lastName(l), ID(id) {} 
+};
