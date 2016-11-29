@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Final Project: Facebook Fun</title>
+    <link href="jumbotron-narrow.css" rel="stylesheet">
+    <link href="blugold.css" rel="stylesheet">
+</head>
+<body>
+    
+    <script>
+      // This is called with the results from from FB.getLoginStatus().
+      function statusChangeCallback(response) {
+        console.log('statusChangeCallback');
+        //console.log(response);
+        if (response.status === 'connected') {
+            graphAPI();
+//          var xhr = new XMLHttpRequest();
+//          xhr.open('post', 'http://localhost:9001', true);
+//          xhr.send(response.authResponse.accessToken);
+//          console.log(response.authResponse.accessToken);
+        } else if (response.status === 'not_authorized') {
+          document.getElementById('status').innerHTML = 'Please log ' +
+            'into this app.';
+        } else {
+          document.getElementById('status').innerHTML = 'Please log ' +
+            'into Facebook.';
+        }
+      }
+
+      // When someone finishes with the Login button
+      function checkLoginState() {
+        FB.getLoginStatus(function(response) {
+          statusChangeCallback(response);
+        });
+      }
+
+      window.fbAsyncInit = function() {
+        FB.init({
+          appId      : '1772144606380852',
+          cookie     : true,  // enable cookies to allow the server to access the session
+          xfbml      : true,  // parse social plugins on this page
+          version    : 'v2.8' // use graph api version 2.8
+        });
+
+        FB.getLoginStatus(function(response) {
+          statusChangeCallback(response);
+        });
+      };
+
+      // Load the SDK asynchronously
+      (function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_US/sdk.js";
+        fjs.parentNode.insertBefore(js, fjs);
+      }(document, 'script', 'facebook-jssdk'));
+
+      function graphAPI() {
+        console.log('Fetching information ');
+        FB.api('/me', function(response) {
+          console.log(response);
+          console.log('Successful login for: ' + response.name);
+          document.getElementById('status').innerHTML =
+            'Thanks for logging in, ' + response.name + '!';
+        });
+        /* make the API call */
+        FB.api(
+          '/me',
+          'GET',
+          {"fields":"friends"},
+          function(response) {
+            console.log(response)
+              // Insert your code here
+          }
+        );
+      }
+      
+      function buttonOnClickHandler (){
+
+        FB.login(function(response) {
+          console.log(response);
+          // specify desired scopes here
+        }, {scope: 'public_profile,email,user_friends'});
+
+      }
+      
+    </script>
+    
+
+    <div class="container">
+      <div class="header clearfix">
+        <nav>
+          <ul class="nav nav-pills pull-right">
+            <li role="presentation" class="active"><a href="#">Home</a></li>
+<!--             <li role="presentation"><a href="#">About</a></li> -->
+<!--             <li role="presentation"><a href="#">Contact</a></li> -->
+          </ul>
+        </nav>
+        <h3 class="text-muted">Final Project: Facebook Fun</h3>
+      </div>
+
+      <div class="jumbotron">
+        <h1>Facebook Fun</h1>
+        <p class="lead">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
+         <p><a href="#" class="btn btn-lg btn-success" onClick="buttonOnClickHandler()">Log In with Facebook</a></p>
+<!--         <p><a class="btn btn-lg btn-success" id="generate_random_btn" href="#" role="button">Authorize with Facebook</a></p> -->
+        
+        
+        <fb:login-button scope="public_profile,user_friends,email" onlogin="checkLoginState();">
+        </fb:login-button>
+
+        <div id="status">
+        </div>
+
+        
+      </div>
+
+      <div class="row marketing">
+        <div class="col-lg-6">
+          <h4>Subheading</h4>
+          <p>Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>
+
+          <h4>Subheading</h4>
+          <p>Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras mattis consectetur purus sit amet fermentum.</p>
+
+          <h4>Subheading</h4>
+          <p>Maecenas sed diam eget risus varius blandit sit amet non magna.</p>
+        </div>
+
+        <div class="col-lg-6">
+          <h4>Subheading</h4>
+          <p>Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>
+
+          <h4>Subheading</h4>
+          <p>Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras mattis consectetur purus sit amet fermentum.</p>
+
+          <h4>Subheading</h4>
+          <p>Maecenas sed diam eget risus varius blandit sit amet non magna.</p>
+        </div>
+      </div>
+      
+      <div class="row" style="margin:auto">
+	      <div class="col-lg-12">
+		<svg xmlns="http://www.w3.org/2000/svg" version="1.1" height="40%" width="40%" viewBox="0 0 100 100" xmlns:xlink="http://www.w3.org/1999/xlink">
+			<defs>
+				<style type="text/css">
+					path {
+						fill: transparent;
+						stroke: red;
+						stroke-width: 0.5;
+					}
+					path:hover {
+						fill: red;
+					}
+				</style>
+			</defs>
+			<a href=#><path d="M 50 8 A 30 30 0 1 0 21 59 30 30 0 0 1 41 36 30 30 0 0 1 50 8" /></a>
+			<path d="M 50 8 A 30 30 0 0 0 41 36 30 30 0 0 1 59 36 30 30 0 0 0 50 8" />
+			<path d="M 50 8 A 30 30 0 1 1 79 59 30 30 0 0 0 59 36 30 30 0 0 0 50 8" />
+			<path d="M 50 52 A 30 30 0 0 1 21 59 30 30 0 0 1 41 36 30 30 0 0 0 50 52" />
+			<path d="M 50 52 A 30 30 0 0 1 41 36 30 30 0 0 1 59 36 30 30 0 0 1 50 52" />
+			<path d="M 50 52 A 30 30 0 0 0 79 59 30 30 0 0 0 59 36 30 30 0 0 1 50 52" />
+			<path d="M 21 59 A 30 30 0 1 0 79 59 30 30 0 0 1 50 52 30 30 0 0 1 21 59" />
+		</svg>
+	      </div>
+	</div>
+
+      <footer class="footer">
+        <p>&copy; 2016 Michael McRoskey</p>
+      </footer>
+
+    </div> <!-- /container -->
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script>
+
+    function post(row, col) {
+	    	console.log('Fetching paths to (' + row + ', ' + col + ')');
+	    	var xhr = new XMLHttpRequest();
+	    	xhr.open('post', 'http://localhost:9001', true);
+
+		var response = [];
+		response.push('hello')
+		response.push('test')
+		
+	    	xhr.send(response.join('\n'));
+
+//		xhr.onreadystatechange = function() {
+//		    if (xhr.readyState == 4 && xhr.status == 200) {
+//			    	var data = JSON.parse(xhr.responseText);
+//			    	console.log(xhr.responseText);
+//		    }
+//		};
+    }
+
+    window.onload = function() {
+		var btn = document.getElementById('jumbotron');
+		  btn.onclick = post(5,4);
+    }
+    </script>
+</body>

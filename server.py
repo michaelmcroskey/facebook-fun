@@ -3,14 +3,8 @@
 from BaseHTTPServer import BaseHTTPRequestHandler, HTTPServer
 from SocketServer   import ForkingMixIn
 
-import facebook
-import getopt
-import json
-import logging
-import mimetypes
-import os
-import subprocess
-import sys
+import getopt, json, logging, mimetypes
+import os, subprocess, sys, facebook, requests
 
 # Constants
 
@@ -55,9 +49,11 @@ class WWWHandler(BaseHTTPRequestHandler):
         self.send_header('Content-type', 'application/json')
         self.end_headers()
 
-        p = subprocess.Popen(['./src/dijkstras'], stdin=subprocess.PIPE, stdout=subprocess.PIPE)
-        d = [map(int, line.split()) for line in p.communicate(data)[0].splitlines()]
-        json.dump({'path': d[1:], 'cost': d[0]}, self.wfile)
+        print data
+        
+#        p = subprocess.Popen(['./src/dijkstras'], stdin=subprocess.PIPE, stdout=subprocess.PIPE)
+#        d = [map(int, line.split()) for line in p.communicate(data)[0].splitlines()]
+#        json.dump({'path': d[1:], 'cost': d[0]}, self.wfile)
 
 # Usage
 

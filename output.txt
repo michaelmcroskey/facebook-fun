@@ -1,0 +1,17 @@
+HTTP/1.1 400 Bad Request
+WWW-Authenticate: OAuth "Facebook Platform" "invalid_token" "Error validating access token: Session has expired on Tuesday, 29-Nov-16 07:00:00 PST. The current time is Tuesday, 29-Nov-16 08:19:34 PST."
+Access-Control-Allow-Origin: *
+Pragma: no-cache
+Cache-Control: no-store
+Expires: Sat, 01 Jan 2000 00:00:00 GMT
+Content-Type: application/json; charset=UTF-8
+x-fb-trace-id: BGRmLogPyzG
+x-fb-rev: 2706175
+x-app-usage: {"call_count":2,"total_cputime":1,"total_time":2}
+Vary: Accept-Encoding
+X-FB-Debug: 8S0hu8SEWo6P5F/5tsfhx5MELtVgpjcylO30MP6dDMqZwZrZz56HDs6HYsCmhVP1Yo7b5cklblmQvyI3tfrV1Q==
+Date: Tue, 29 Nov 2016 16:19:34 GMT
+Transfer-Encoding: chunked
+Connection: keep-alive
+
+{"error":{"message":"Error validating access token: Session has expired on Tuesday, 29-Nov-16 07:00:00 PST. The current time is Tuesday, 29-Nov-16 08:19:34 PST.","type":"OAuthException","code":190,"error_subcode":463,"fbtrace_id":"BGRmLogPyzG"}}
