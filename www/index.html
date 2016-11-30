@@ -76,8 +76,11 @@
 //        );
       }
       
-      function buttonOnClickHandler (){
+      function buttonOnClickHandler (btn){
 
+        btn.style.display = 'none';
+        document.getElementById("thanks").style.display = 'block';
+        
         FB.login(function(response) {
           FB.api(
             '/me',
@@ -106,6 +109,8 @@
             }
           );
         }, {scope: 'public_profile,email,user_friends'});
+        
+        
 
       }
       
@@ -126,8 +131,11 @@
 
       <div class="jumbotron">
         <h1>Facebook Fun</h1>
-        <p class="lead">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-         <p><a href="#" class="btn btn-lg btn-success" onClick="buttonOnClickHandler()">Log In with Facebook</a></p>
+        <p class="lead">This is a demonstration of our Data Structures final project, which uses Facebook's Graph API as well as Python, Javascript, HTML, and CSS. Log in with Facebook and then see mutual friends. Made by Michael McRoskey, Troy Prince, and David Mellitt.</p>
+         <p><a href="#" id="bigAssButton" class="btn btn-lg btn-success" onClick="buttonOnClickHandler(this); return false;">Log In with Facebook</a></p>
+        <span id="thanks" style="display: none; color: #002b5c; margin-top: 40px;">
+          <p>Sweet, you're logged in</p>
+        </span>
 <!--         <p><a class="btn btn-lg btn-success" id="generate_random_btn" href="#" role="button">Authorize with Facebook</a></p> -->
         
         
@@ -140,55 +148,55 @@
         
       </div>
 
-      <div class="row marketing">
-        <div class="col-lg-6">
-          <h4>Subheading</h4>
-          <p>Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>
-
-          <h4>Subheading</h4>
-          <p>Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras mattis consectetur purus sit amet fermentum.</p>
-
-          <h4>Subheading</h4>
-          <p>Maecenas sed diam eget risus varius blandit sit amet non magna.</p>
-        </div>
-
-        <div class="col-lg-6">
-          <h4>Subheading</h4>
-          <p>Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>
-
-          <h4>Subheading</h4>
-          <p>Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras mattis consectetur purus sit amet fermentum.</p>
-
-          <h4>Subheading</h4>
-          <p>Maecenas sed diam eget risus varius blandit sit amet non magna.</p>
-        </div>
-      </div>
+<!--       <div class="row marketing"> -->
+<!--         <div class="col-lg-6"> -->
+<!--           <h4>Subheading</h4> -->
+<!--           <p>Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p> -->
+<!--  -->
+<!--           <h4>Subheading</h4> -->
+<!--           <p>Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras mattis consectetur purus sit amet fermentum.</p> -->
+<!--  -->
+<!--           <h4>Subheading</h4> -->
+<!--           <p>Maecenas sed diam eget risus varius blandit sit amet non magna.</p> -->
+<!--         </div> -->
+<!--  -->
+<!--         <div class="col-lg-6"> -->
+<!--           <h4>Subheading</h4> -->
+<!--           <p>Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p> -->
+<!--  -->
+<!--           <h4>Subheading</h4> -->
+<!--           <p>Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras mattis consectetur purus sit amet fermentum.</p> -->
+<!--  -->
+<!--           <h4>Subheading</h4> -->
+<!--           <p>Maecenas sed diam eget risus varius blandit sit amet non magna.</p> -->
+<!--         </div> -->
+<!--       </div> -->
       
-      <div class="row" style="margin:auto">
-	      <div class="col-lg-12">
-		<svg xmlns="http://www.w3.org/2000/svg" version="1.1" height="40%" width="40%" viewBox="0 0 100 100" xmlns:xlink="http://www.w3.org/1999/xlink">
-			<defs>
-				<style type="text/css">
-					path {
-						fill: transparent;
-						stroke: red;
-						stroke-width: 0.5;
-					}
-					path:hover {
-						fill: red;
-					}
-				</style>
-			</defs>
-			<a href=#><path d="M 50 8 A 30 30 0 1 0 21 59 30 30 0 0 1 41 36 30 30 0 0 1 50 8" /></a>
-			<path d="M 50 8 A 30 30 0 0 0 41 36 30 30 0 0 1 59 36 30 30 0 0 0 50 8" />
-			<path d="M 50 8 A 30 30 0 1 1 79 59 30 30 0 0 0 59 36 30 30 0 0 0 50 8" />
-			<path d="M 50 52 A 30 30 0 0 1 21 59 30 30 0 0 1 41 36 30 30 0 0 0 50 52" />
-			<path d="M 50 52 A 30 30 0 0 1 41 36 30 30 0 0 1 59 36 30 30 0 0 1 50 52" />
-			<path d="M 50 52 A 30 30 0 0 0 79 59 30 30 0 0 0 59 36 30 30 0 0 1 50 52" />
-			<path d="M 21 59 A 30 30 0 1 0 79 59 30 30 0 0 1 50 52 30 30 0 0 1 21 59" />
-		</svg>
-	      </div>
-	</div>
+<!--       <div class="row" style="margin:auto"> -->
+<!-- 	      <div class="col-lg-12"> -->
+<!-- 		<svg xmlns="http://www.w3.org/2000/svg" version="1.1" height="40%" width="40%" viewBox="0 0 100 100" xmlns:xlink="http://www.w3.org/1999/xlink"> -->
+<!-- 			<defs> -->
+<!-- 				<style type="text/css"> -->
+<!-- 					path { -->
+<!-- 						fill: transparent; -->
+<!-- 						stroke: red; -->
+<!-- 						stroke-width: 0.5; -->
+<!-- 					} -->
+<!-- 					path:hover { -->
+<!-- 						fill: red; -->
+<!-- 					} -->
+<!-- 				</style> -->
+<!-- 			</defs> -->
+<!-- 			<a href=#><path d="M 50 8 A 30 30 0 1 0 21 59 30 30 0 0 1 41 36 30 30 0 0 1 50 8" /></a> -->
+<!-- 			<path d="M 50 8 A 30 30 0 0 0 41 36 30 30 0 0 1 59 36 30 30 0 0 0 50 8" /> -->
+<!-- 			<path d="M 50 8 A 30 30 0 1 1 79 59 30 30 0 0 0 59 36 30 30 0 0 0 50 8" /> -->
+<!-- 			<path d="M 50 52 A 30 30 0 0 1 21 59 30 30 0 0 1 41 36 30 30 0 0 0 50 52" /> -->
+<!-- 			<path d="M 50 52 A 30 30 0 0 1 41 36 30 30 0 0 1 59 36 30 30 0 0 1 50 52" /> -->
+<!-- 			<path d="M 50 52 A 30 30 0 0 0 79 59 30 30 0 0 0 59 36 30 30 0 0 1 50 52" /> -->
+<!-- 			<path d="M 21 59 A 30 30 0 1 0 79 59 30 30 0 0 1 50 52 30 30 0 0 1 21 59" /> -->
+<!-- 		</svg> -->
+<!-- 	      </div> -->
+<!-- 	</div> -->
 
       <footer class="footer">
         <p>&copy; 2016 Michael McRoskey</p>
