@@ -1,235 +1,338 @@
 <!DOCTYPE html>
+
 <html>
 <head>
-    <title>Final Project: Facebook Fun</title>
-    <link href="jumbotron-narrow.css" rel="stylesheet">
-    <link href="blugold.css" rel="stylesheet">
+	<title>Final Project: Facebook Fun</title>
+	<link href="jumbotron-narrow.css" rel="stylesheet">
+	<link href="blugold.css" rel="stylesheet">
+	<link href="graph.css" rel="stylesheet">
 </head>
+
 <body>
-    
-    <script>
-      // This is called with the results from from FB.getLoginStatus().
-      function statusChangeCallback(response) {
-        console.log('statusChangeCallback');
-        //console.log(response);
-        if (response.status === 'connected') {
-            graphAPI();
-//          var xhr = new XMLHttpRequest();
-//          xhr.open('post', 'http://localhost:9001', true);
-//          xhr.send(response.authResponse.accessToken);
-//          console.log(response.authResponse.accessToken);
-        } else if (response.status === 'not_authorized') {
-          document.getElementById('status').innerHTML = 'Please log ' +
-            'into this app.';
-        } else {
-          document.getElementById('status').innerHTML = 'Please log ' +
-            'into Facebook.';
-        }
-      }
+	<script src="http://d3js.org/d3.v3.min.js">
+	</script> 
+	<script>
+	     // This is called with the results from from FB.getLoginStatus().
+	     function statusChangeCallback(response) {
+	       console.log('statusChangeCallback');
+	       //console.log(response);
+	       if (response.status === 'connected') {
+	           graphAPI();
+	//          var xhr = new XMLHttpRequest();
+	//          xhr.open('post', 'http://localhost:9001', true);
+	//          xhr.send(response.authResponse.accessToken);
+	//          console.log(response.authResponse.accessToken);
+	       } else if (response.status === 'not_authorized') {
+	         document.getElementById('status').innerHTML = 'Please log ' +
+	           'into this app.';
+	       } else {
+	         document.getElementById('status').innerHTML = 'Please log ' +
+	           'into Facebook.';
+	       }
+	     }
 
-      // When someone finishes with the Login button
-      function checkLoginState() {
-        FB.getLoginStatus(function(response) {
-          statusChangeCallback(response);
-        });
-      }
+	     // When someone finishes with the Login button
+	     function checkLoginState() {
+	       FB.getLoginStatus(function(response) {
+	         statusChangeCallback(response);
+	       });
+	     }
 
-      window.fbAsyncInit = function() {
-        FB.init({
-          appId      : '1772144606380852',
-          cookie     : true,  // enable cookies to allow the server to access the session
-          xfbml      : true,  // parse social plugins on this page
-          version    : 'v2.8' // use graph api version 2.8
-        });
+	     window.fbAsyncInit = function() {
+	       FB.init({
+	         appId      : '1772144606380852',
+	         cookie     : true,  // enable cookies to allow the server to access the session
+	         xfbml      : true,  // parse social plugins on this page
+	         version    : 'v2.8' // use graph api version 2.8
+	       });
 
-        FB.getLoginStatus(function(response) {
-          statusChangeCallback(response);
-        });
-      };
+	       FB.getLoginStatus(function(response) {
+	         statusChangeCallback(response);
+	       });
+	     };
 
-      // Load the SDK asynchronously
-      (function(d, s, id) {
-        var js, fjs = d.getElementsByTagName(s)[0];
-        if (d.getElementById(id)) return;
-        js = d.createElement(s); js.id = id;
-        js.src = "//connect.facebook.net/en_US/sdk.js";
-        fjs.parentNode.insertBefore(js, fjs);
-      }(document, 'script', 'facebook-jssdk'));
+	     // Load the SDK asynchronously
+	     (function(d, s, id) {
+	       var js, fjs = d.getElementsByTagName(s)[0];
+	       if (d.getElementById(id)) return;
+	       js = d.createElement(s); js.id = id;
+	       js.src = "//connect.facebook.net/en_US/sdk.js";
+	       fjs.parentNode.insertBefore(js, fjs);
+	     }(document, 'script', 'facebook-jssdk'));
 
-      function graphAPI() {
-        console.log('Fetching information ');
-        FB.api('/me', function(response) {
-          console.log(response);
-          console.log('Successful login for: ' + response.name);
-          document.getElementById('status').innerHTML =
-            'Thanks for logging in, ' + response.name + '!';
-        });
-        /* make the API call */
-//        FB.api(
-//          '/me',
-//          'GET',
-//          {"fields":"friends"},
-//          function(response) {
-//            console.log(response)
-//              // Insert your code here
-//          }
-//        );
-      }
-      
-      function buttonOnClickHandler (btn){
+	     function graphAPI() {
+	       console.log('Fetching information ');
+	       FB.api('/me', function(response) {
+	         console.log(response);
+	         console.log('Successful login for: ' + response.name);
+	         document.getElementById('facebook_fun').innerHTML =
+	           'Welcome ' + response.name.split(' ')[0] + '!';
+	         document.getElementById('bigAssButton').innerHTML =
+	           'Continue';
+	       });
+	       /* make the API call */
+	//        FB.api(
+	//          '/me',
+	//          'GET',
+	//          {"fields":"friends"},
+	//          function(response) {
+	//            console.log(response)
+	//              // Insert your code here
+	//          }
+	//        );
+	     }
+	     
+	     function buttonOnClickHandler (btn){
+		     
+		 var person;
 
-        btn.style.display = 'none';
-        document.getElementById("thanks").style.display = 'block';
-        
-        FB.login(function(response) {
-          FB.api(
-            '/me',
-            'GET',
-            {"fields":"friends"},
-            function(response) {
-              
-              var friends = [];      
-              var myfriends = response.friends.data
-              
-              for (i in myfriends){
-                friends.push(response.friends.data[i].name + "\t" + response.friends.data[i].id)
-              }
-              
-              var xhr = new XMLHttpRequest();
-              xhr.open('post', 'http://localhost:9001', true);
-              xhr.send(friends.join('\n'));
-              console.log(friends)
-              
-              xhr.onreadystatechange = function() {
-                if (xhr.readyState == 4 && xhr.status == 200) {
-                  	var data = JSON.parse(xhr.responseText);
-                  	console.log(xhr.responseText);
-                }
-            };
-            }
-          );
-        }, {scope: 'public_profile,email,user_friends'});
-        
-        
+	       FB.login(function(response) {
+		       
+	         FB.api(
+	           '/me',
+	           'GET',
+	           {"fields":"friends"},
+	           function(response) {
+	             
+	             var friends = [];      
+	             var myfriends = response.friends.data
+	             
+	             for (i in myfriends){
+	               friends.push(response.friends.data[i].name + "\t" + response.friends.data[i].id)
+	             }
+	             
+	             var xhr = new XMLHttpRequest();
+	             xhr.open('POST', 'http://localhost:9001', true);
+	             xhr.send(friends.join('\n'));
+	             console.log(friends)
+	             
+	             xhr.onreadystatechange = function() {
+	               if (xhr.readyState == 4 && xhr.status == 200) {
+	                   var data = JSON.parse(xhr.responseText);
+	                   console.log(xhr.responseText);
+	               }
+	           };
+	           }
+	         );
+	       }, {scope: 'public_profile,email,user_friends'});
+	       
+	       btn.style.display = 'none';
+	       document.getElementById("thanks").style.visibility = 'visible';
+	       document.getElementById("choose_nodes").style.visibility = 'visible';
+	       document.getElementById("info").innerHTML = 'Successfully addded your friends to the graph. Now check if two people are friends by entering their names below and clicking GO:';
+	     }
+	     
+	</script>
 
-      }
-      
-    </script>
-    
+	<div class="container">
+		<div class="header clearfix">
+			<nav>
+				<ul class="nav nav-pills pull-right">
+					<li class="active" role="presentation">
+						<a href="#">Home</a>
+					</li>
+					<!--             <li role="presentation"><a href="#">About</a></li> -->
+					<!--             <li role="presentation"><a href="#">Contact</a></li> -->
+				</ul>
+			</nav>
 
-    <div class="container">
-      <div class="header clearfix">
-        <nav>
-          <ul class="nav nav-pills pull-right">
-            <li role="presentation" class="active"><a href="#">Home</a></li>
-<!--             <li role="presentation"><a href="#">About</a></li> -->
-<!--             <li role="presentation"><a href="#">Contact</a></li> -->
-          </ul>
-        </nav>
-        <h3 class="text-muted">Final Project: Facebook Fun</h3>
-      </div>
 
-      <div class="jumbotron">
-        <h1>Facebook Fun</h1>
-        <p class="lead">This is a demonstration of our Data Structures final project, which uses Facebook's Graph API as well as Python, Javascript, HTML, and CSS. Log in with Facebook and then see mutual friends. Made by Michael McRoskey, Troy Prince, and David Mellitt.</p>
-         <p><a href="#" id="bigAssButton" class="btn btn-lg btn-success" onClick="buttonOnClickHandler(this); return false;">Log In with Facebook</a></p>
-        <span id="thanks" style="display: none; color: #002b5c; margin-top: 40px;">
-          <p>Sweet, you're logged in</p>
-        </span>
-<!--         <p><a class="btn btn-lg btn-success" id="generate_random_btn" href="#" role="button">Authorize with Facebook</a></p> -->
-        
-        
-<!--         <fb:login-button scope="public_profile,user_friends,email" onlogin="checkLoginState();"> -->
-<!--         </fb:login-button> -->
-<!--  -->
-<!--         <div id="status"> -->
-<!--         </div> -->
+			<h3 class="text-muted">Final Project: Facebook Fun</h3>
+		</div>
 
-        
-      </div>
 
-<!--       <div class="row marketing"> -->
-<!--         <div class="col-lg-6"> -->
-<!--           <h4>Subheading</h4> -->
-<!--           <p>Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p> -->
-<!--  -->
-<!--           <h4>Subheading</h4> -->
-<!--           <p>Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras mattis consectetur purus sit amet fermentum.</p> -->
-<!--  -->
-<!--           <h4>Subheading</h4> -->
-<!--           <p>Maecenas sed diam eget risus varius blandit sit amet non magna.</p> -->
-<!--         </div> -->
-<!--  -->
-<!--         <div class="col-lg-6"> -->
-<!--           <h4>Subheading</h4> -->
-<!--           <p>Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p> -->
-<!--  -->
-<!--           <h4>Subheading</h4> -->
-<!--           <p>Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras mattis consectetur purus sit amet fermentum.</p> -->
-<!--  -->
-<!--           <h4>Subheading</h4> -->
-<!--           <p>Maecenas sed diam eget risus varius blandit sit amet non magna.</p> -->
-<!--         </div> -->
-<!--       </div> -->
-      
-<!--       <div class="row" style="margin:auto"> -->
-<!-- 	      <div class="col-lg-12"> -->
-<!-- 		<svg xmlns="http://www.w3.org/2000/svg" version="1.1" height="40%" width="40%" viewBox="0 0 100 100" xmlns:xlink="http://www.w3.org/1999/xlink"> -->
-<!-- 			<defs> -->
-<!-- 				<style type="text/css"> -->
-<!-- 					path { -->
-<!-- 						fill: transparent; -->
-<!-- 						stroke: red; -->
-<!-- 						stroke-width: 0.5; -->
-<!-- 					} -->
-<!-- 					path:hover { -->
-<!-- 						fill: red; -->
-<!-- 					} -->
-<!-- 				</style> -->
-<!-- 			</defs> -->
-<!-- 			<a href=#><path d="M 50 8 A 30 30 0 1 0 21 59 30 30 0 0 1 41 36 30 30 0 0 1 50 8" /></a> -->
-<!-- 			<path d="M 50 8 A 30 30 0 0 0 41 36 30 30 0 0 1 59 36 30 30 0 0 0 50 8" /> -->
-<!-- 			<path d="M 50 8 A 30 30 0 1 1 79 59 30 30 0 0 0 59 36 30 30 0 0 0 50 8" /> -->
-<!-- 			<path d="M 50 52 A 30 30 0 0 1 21 59 30 30 0 0 1 41 36 30 30 0 0 0 50 52" /> -->
-<!-- 			<path d="M 50 52 A 30 30 0 0 1 41 36 30 30 0 0 1 59 36 30 30 0 0 1 50 52" /> -->
-<!-- 			<path d="M 50 52 A 30 30 0 0 0 79 59 30 30 0 0 0 59 36 30 30 0 0 1 50 52" /> -->
-<!-- 			<path d="M 21 59 A 30 30 0 1 0 79 59 30 30 0 0 1 50 52 30 30 0 0 1 21 59" /> -->
-<!-- 		</svg> -->
-<!-- 	      </div> -->
-<!-- 	</div> -->
+		<div class="jumbotron">
+			<h1 id="facebook_fun">Facebook Fun</h1>
 
-      <footer class="footer">
-        <p>&copy; 2016 Michael McRoskey</p>
-      </footer>
 
-    </div> <!-- /container -->
+			<p class="lead" id="info">This is a demonstration of our Data Structures final project, which uses Facebook's Graph API as well as D3.js, Python, Javascript, HTML, and CSS. Log in with Facebook and then see mutual friends. Made by Michael McRoskey, Troy Prince, and David Mellitt.</p>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script>
 
-    function post(row, col) {
-	    	console.log('Fetching paths to (' + row + ', ' + col + ')');
-	    	var xhr = new XMLHttpRequest();
-	    	xhr.open('post', 'http://localhost:9001', true);
+			<p><a class="btn btn-lg btn-success" href="#" id="bigAssButton" onclick="buttonOnClickHandler(this); return false;">Log In with Facebook</a>
+			</p>
+			<span id="thanks" style="display: none; color: #002b5c; margin-top: 40px;"></span>
 
-		var response = [];
-		response.push('hello')
-		response.push('test')
+			<p id="thanks" style="visibility: hidden; display: none; color: #002b5c; margin-top: 40px;">Sweet, you're logged in</p>
+			<!--         <p><a class="btn btn-lg btn-success" id="generate_random_btn" href="#" role="button">Authorize with Facebook</a></p> -->
+			<!--         <fb:login-button scope="public_profile,user_friends,email" onlogin="checkLoginState();"> -->
+			<!--         </fb:login-button> -->
+			<!--  -->
+			<!--         <div id="status"> -->
+			<!--         </div> -->
+		</div>
 		
-	    	xhr.send(response.join('\n'));
-
-		xhr.onreadystatechange = function() {
-		    if (xhr.readyState == 4 && xhr.status == 200) {
-			    	var data = JSON.parse(xhr.responseText);
-			    	console.log(xhr.responseText);
+<!--
+		<div class="ui-widget">
+			<input id="search">
+			<button type="button" onclick="searchNode()">Search</button>
+		</div>
+-->
+		
+		<div id="choose_nodes" class="row marketing" style="visibility: hidden;">
+			<form action="javascript:void(0);" id="frm1">
+				<div class="col-lg-5">
+					<h4 style="text-align: center; margin:auto;">Start Node</h4>
+						<input id="start" type="text" name="StartNode" value="Troy">
+				</div>
+	
+				<div class="col-lg-5">
+					<h4 style="text-align: center; margin:auto;">End Node</h4>
+						<input id="end" type="text" name="StartNode" value="Brittany">
+				</div>
+				<div class="col-lg-2">
+					<p style="margin-top:30px;">
+						<a class="btn btn-lg btn-green" href="#" id="bigAssButton" onclick="nodeForm()">GO</a>
+					</p>
+				</div>
+			</form>
+		</div>
+		
+		<p id="demo"></p>
+		
+		<script>
+		function nodeForm() {
+		    var x = document.getElementById("frm1");
+		    var text = [];
+		    var i;
+		    for (i = 0; i < x.length ;i++) {
+		        text.push(x.elements[i].value);
 		    }
-		};
-    }
+		    console.log(text);
+		    document.getElementById("graph").style.visibility = "visible";
+		}
+		</script>
+		
+		<span id="graph" style="visibility: hidden;">
+		
+		<script>	
+		var links = [];
 
-//    window.onload = function() {
-//		var btn = document.getElementById('jumbotron');
-//		  btn.onclick = post(5,4);
-//    }
-    </script>
+		function readTextFile(file){
+		    var rawFile = new XMLHttpRequest();
+		    rawFile.open("GET", file, false);
+		    rawFile.onreadystatechange = function (){
+		        if(rawFile.readyState === 4){
+		            if(rawFile.status === 200 || rawFile.status == 0){
+		                var allText = rawFile.responseText;
+		                links = JSON.parse(allText)
+		            }
+		        }
+		    }
+		    rawFile.send(null);
+		}
+		readTextFile("graph.txt");
+
+		var nodes = {};
+
+		// Compute the distinct nodes from the links.
+		links.forEach(function(link) {
+		  link.source = nodes[link.source] || (nodes[link.source] = {name: link.source});
+		  link.target = nodes[link.target] || (nodes[link.target] = {name: link.target});
+		});
+
+		var width = 700,
+		      height = 400;
+
+		var force = d3.layout.force()
+		      .nodes(d3.values(nodes))
+		      .links(links)
+		      .size([width, height])
+		      .linkDistance(60)
+		      .charge(-300)
+		      .on("tick", tick)
+		      .start();
+
+		var svg = d3.select("#graph").append("svg")
+		      .attr("width", width)
+		      .attr("height", height);
+
+		// Per-type markers, as they don't inherit styles.
+		svg.append("defs").selectAll("marker")
+		      .data(["line", "bold", "resolved"])
+		  .enter().append("marker")
+		      .attr("id", function(d) { return d; })
+		      .attr("viewBox", "0 -5 10 10")
+		      .attr("refX", 15)
+		      .attr("refY", -1.5)
+		      .attr("markerWidth", 6)
+		      .attr("markerHeight", 6)
+		      .attr("orient", "auto")
+		  .append("path")
+		      .attr("d", "M0,-5L10,0L0,5");
+
+		var path = svg.append("g").selectAll("path")
+		      .data(force.links())
+		  .enter().append("path")
+		      .attr("class", function(d) { return "link " + d.type; })
+
+		var circle = svg.append("g").selectAll("circle")
+		      .data(force.nodes())
+		  .enter().append("circle")
+		      .attr("r", 6)
+		      .call(force.drag);
+
+		var text = svg.append("g").selectAll("text")
+		      .data(force.nodes())
+		  .enter().append("text")
+		      .attr("x", 8)
+		      .attr("y", ".31em")
+		      .text(function(d) { return d.name; });
+
+		// Use elliptical arc path segments to doubly-encode directionality.
+		function tick() {
+		  path.attr("d", linkArc);
+		  circle.attr("transform", transform);
+		  text.attr("transform", transform);
+		}
+
+		function linkArc(d) {
+		  var dx = d.target.x - d.source.x,
+		          dy = d.target.y - d.source.y,
+		          dr = Math.sqrt(dx * dx + dy * dy);
+		  return "M" + d.source.x + "," + d.source.y + "L" + d.target.x + "," + d.target.y;
+		}
+
+		function transform(d) {
+		  return "translate(" + d.x + "," + d.y + ")";
+		}
+
+		</script></span>
+
+
+		<footer class="footer">
+			<p>&copy; 2016 Michael McRoskey</p>
+		</footer>
+	</div>
+	<!-- /container -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.0/jquery.min.js">
+	</script> 
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js">
+	</script> 
+	<script>
+
+	   function post(row, col) {
+	           console.log('Fetching paths to (' + row + ', ' + col + ')');
+	           var xhr = new XMLHttpRequest();
+	           xhr.open('post', 'http://localhost:9001', true);
+
+	       var response = [];
+	       response.push('hello')
+	       response.push('test')
+	       
+	           xhr.send(response.join('\n'));
+
+	       xhr.onreadystatechange = function() {
+	           if (xhr.readyState == 4 && xhr.status == 200) {
+	                   var data = JSON.parse(xhr.responseText);
+	                   console.log(xhr.responseText);
+	           }
+	       };
+	   }
+
+	//    window.onload = function() {
+	//      var btn = document.getElementById('jumbotron');
+	//        btn.onclick = post(5,4);
+	//    }
+	</script>
 </body>
+</html>

@@ -1,0 +1,47 @@
+.link {
+	fill: none;
+	stroke: #666;
+	stroke-width: 1.5px;
+}
+
+#bold {
+	fill: green;
+}
+
+.link.bold {
+	stroke: green;
+	stroke-width: 4.5px;
+}
+
+.link.resolved {
+	stroke-dasharray: 0,2 1;
+}
+
+circle {
+	fill: #ccc;
+	stroke: #333;
+	stroke-width: 1.5px;
+}
+
+text {
+	font: 10px sans-serif;
+	pointer-events: none;
+	text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, 0 -1px 0 #fff, -1px 0 0 #fff;
+}
+
+input[type=text], select {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 24px;
+}
+
+#centered {
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+}
