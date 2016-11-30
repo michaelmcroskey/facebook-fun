@@ -65,22 +65,46 @@
             'Thanks for logging in, ' + response.name + '!';
         });
         /* make the API call */
-        FB.api(
-          '/me',
-          'GET',
-          {"fields":"friends"},
-          function(response) {
-            console.log(response)
-              // Insert your code here
-          }
-        );
+//        FB.api(
+//          '/me',
+//          'GET',
+//          {"fields":"friends"},
+//          function(response) {
+//            console.log(response)
+//              // Insert your code here
+//          }
+//        );
       }
       
       function buttonOnClickHandler (){
 
         FB.login(function(response) {
-          console.log(response);
-          // specify desired scopes here
+          FB.api(
+            '/me',
+            'GET',
+            {"fields":"friends"},
+            function(response) {
+              
+              var friends = [];      
+              var myfriends = response.friends.data
+              
+              for (i in myfriends){
+                friends.push(response.friends.data[i].name + "\t" + response.friends.data[i].id)
+              }
+              
+              var xhr = new XMLHttpRequest();
+              xhr.open('post', 'http://localhost:9001', true);
+              xhr.send(friends.join('\n'));
+              console.log(friends)
+              
+              xhr.onreadystatechange = function() {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                  	var data = JSON.parse(xhr.responseText);
+                  	console.log(xhr.responseText);
+                }
+            };
+            }
+          );
         }, {scope: 'public_profile,email,user_friends'});
 
       }
@@ -107,11 +131,11 @@
 <!--         <p><a class="btn btn-lg btn-success" id="generate_random_btn" href="#" role="button">Authorize with Facebook</a></p> -->
         
         
-        <fb:login-button scope="public_profile,user_friends,email" onlogin="checkLoginState();">
-        </fb:login-button>
-
-        <div id="status">
-        </div>
+<!--         <fb:login-button scope="public_profile,user_friends,email" onlogin="checkLoginState();"> -->
+<!--         </fb:login-button> -->
+<!--  -->
+<!--         <div id="status"> -->
+<!--         </div> -->
 
         
       </div>
@@ -187,17 +211,17 @@
 		
 	    	xhr.send(response.join('\n'));
 
-//		xhr.onreadystatechange = function() {
-//		    if (xhr.readyState == 4 && xhr.status == 200) {
-//			    	var data = JSON.parse(xhr.responseText);
-//			    	console.log(xhr.responseText);
-//		    }
-//		};
+		xhr.onreadystatechange = function() {
+		    if (xhr.readyState == 4 && xhr.status == 200) {
+			    	var data = JSON.parse(xhr.responseText);
+			    	console.log(xhr.responseText);
+		    }
+		};
     }
 
-    window.onload = function() {
-		var btn = document.getElementById('jumbotron');
-		  btn.onclick = post(5,4);
-    }
+//    window.onload = function() {
+//		var btn = document.getElementById('jumbotron');
+//		  btn.onclick = post(5,4);
+//    }
     </script>
 </body>
