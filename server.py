@@ -64,8 +64,11 @@ class WWWHandler(BaseHTTPRequestHandler):
 #        json.dump({'path': d[1:], 'cost': d[0]}, self.wfile)
 
 def processDijkstras(data):
-#    code here
-    print data
+    first = True
+    string = ""
+    nodes = data.split('\n')
+    string = nodes[1] + " " + nodes[2]
+    print string
 
 def addFriends(data):
     first = True
