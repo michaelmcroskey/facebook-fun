@@ -59,11 +59,14 @@
 	       js.src = "//connect.facebook.net/en_US/sdk.js";
 	       fjs.parentNode.insertBefore(js, fjs);
 	     }(document, 'script', 'facebook-jssdk'));
-
+		 
+		 var person;
+		 
 	     function graphAPI() {
 	       console.log('Fetching information ');
 	       FB.api('/me', function(response) {
 	         console.log(response);
+	         person = response.name;
 	         console.log('Successful login for: ' + response.name);
 	         document.getElementById('facebook_fun').innerHTML =
 	           'Welcome ' + response.name.split(' ')[0] + '!';
@@ -83,9 +86,7 @@
 	     }
 	     
 	     function buttonOnClickHandler (btn){
-		     
-		 var person;
-
+		  
 	       FB.login(function(response) {
 		       
 	         FB.api(
@@ -97,8 +98,9 @@
 	             var friends = [];      
 	             var myfriends = response.friends.data
 	             
+	             friends.push("friends:" + person);
 	             for (i in myfriends){
-	               friends.push(response.friends.data[i].name + "\t" + response.friends.data[i].id)
+	               friends.push(response.friends.data[i].name + "," + response.friends.data[i].id)
 	             }
 	             
 	             var xhr = new XMLHttpRequest();

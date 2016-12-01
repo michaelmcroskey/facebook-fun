@@ -48,12 +48,54 @@ class WWWHandler(BaseHTTPRequestHandler):
         self.send_response(200)
         self.send_header('Content-type', 'application/json')
         self.end_headers()
-
-        print data
         
-#        p = subprocess.Popen(['./src/dijkstras'], stdin=subprocess.PIPE, stdout=subprocess.PIPE)
+        # if data is friends list
+        if (data[0] == 'f' and data[7] == ':'):
+            addFriends(data)
+            
+        
+#        print data
+        
+#        p = subprocess.Popen(['./dijkstras'], stdin=subprocess.PIPE, stdout=subprocess.PIPE)
 #        d = [map(int, line.split()) for line in p.communicate(data)[0].splitlines()]
 #        json.dump({'path': d[1:], 'cost': d[0]}, self.wfile)
+
+def addFriends(data):
+    first = True
+    comma = False
+    string = ""
+    for friend in data.split('\n'):
+        if first:
+            person = friend.split(":")[1].split(" ")[0]
+            first = False;
+            continue
+        if comma:
+            string += ","
+        else:
+            comma = True
+        name = friend.split(",")[0].split(" ")[0]
+        f_id = friend.split(",")[1]
+        
+        string += "{\"source\":\"" + person + "\",\"target\":\"" + name + "\",\"type\":\"line\"}"
+    
+    #CASE 1: APPENDING FILE: READ IN AND STRIP STRING, APPEND FRIENDS, CHECK FOR DUPLICATES
+    
+    #CASE 2: FILE DOESN'T EXIST: ADD [] BEFORE AND AFTER
+    
+    if os.path.exists("www/graph.txt"):
+        f = open("www/graph.txt", "r+")
+        data = f.read()
+        data = ''.join(data.split())[:-1]
+        f.close()
+        f = open("www/graph.txt", "w+")
+        f.truncate()
+        f.write(data + "," + string + "]")
+        f.close()
+        #should de-duplicate
+    else:
+        f = open("www/graph.txt", "w+")
+        f.write("[" + string + "]")
+        f.close()
 
 # Usage
 
