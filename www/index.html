@@ -13,6 +13,7 @@
 	</script> 
 	<script>
 	     // This is called with the results from from FB.getLoginStatus().
+/*
 	     function statusChangeCallback(response) {
 	       console.log('statusChangeCallback');
 	       //console.log(response);
@@ -30,6 +31,7 @@
 	           'into Facebook.';
 	       }
 	     }
+*/
 
 	     // When someone finishes with the Login button
 	     function checkLoginState() {
@@ -46,9 +48,11 @@
 	         version    : 'v2.8' // use graph api version 2.8
 	       });
 
+/*
 	       FB.getLoginStatus(function(response) {
 	         statusChangeCallback(response);
 	       });
+*/
 	     };
 
 	     // Load the SDK asynchronously
@@ -73,21 +77,13 @@
 	         document.getElementById('bigAssButton').innerHTML =
 	           'Continue';
 	       });
-	       /* make the API call */
-	//        FB.api(
-	//          '/me',
-	//          'GET',
-	//          {"fields":"friends"},
-	//          function(response) {
-	//            console.log(response)
-	//              // Insert your code here
-	//          }
-	//        );
 	     }
 	     
 	     function buttonOnClickHandler (btn){
 		  
 	       FB.login(function(response) {
+		       
+		       graphAPI();
 		       
 	         FB.api(
 	           '/me',
@@ -108,12 +104,14 @@
 	             xhr.send(friends.join('\n'));
 	             console.log(friends)
 	             
+/*
 	             xhr.onreadystatechange = function() {
 	               if (xhr.readyState == 4 && xhr.status == 200) {
 	                   var data = JSON.parse(xhr.responseText);
 	                   console.log(xhr.responseText);
 	               }
 	           };
+*/
 	           }
 	         );
 	       }, {scope: 'public_profile,email,user_friends'});
@@ -196,15 +194,21 @@
 		    var x = document.getElementById("frm1");
 		    var text = [];
 		    var i;
+		    text.push("path")
 		    for (i = 0; i < x.length ;i++) {
 		        text.push(x.elements[i].value);
 		    }
+		    
+		    var xhr = new XMLHttpRequest();
+             xhr.open('POST', 'http://localhost:9001', true);
+             xhr.send(text.join('\n'));
+		    
 		    console.log(text);
 		    document.getElementById("graph").style.visibility = "visible";
 		}
 		</script>
 		
-		<span id="graph" style="visibility: hidden;">
+		<span id="graph" style="visibility: visible;">
 		
 		<script>	
 		var links = [];
@@ -239,7 +243,7 @@
 		      .nodes(d3.values(nodes))
 		      .links(links)
 		      .size([width, height])
-		      .linkDistance(60)
+		      .linkDistance(100)
 		      .charge(-300)
 		      .on("tick", tick)
 		      .start();
@@ -302,7 +306,7 @@
 
 
 		<footer class="footer">
-			<p>&copy; 2016 Michael McRoskey</p>
+			<p>&copy; 2016 Michael McRoskey, Troy Prince, David Mellitt</p>
 		</footer>
 	</div>
 	<!-- /container -->

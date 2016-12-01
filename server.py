@@ -52,13 +52,20 @@ class WWWHandler(BaseHTTPRequestHandler):
         # if data is friends list
         if (data[0] == 'f' and data[7] == ':'):
             addFriends(data)
-            
-        
-#        print data
+        elif (data[0] == 'p' and data[3] == 'h'):
+            processDijkstras(data)
+#        # if data is start and end node
+#        if (data[0] == 'f' and data[7] == ':'):
+#            addFriends(data)
+
         
 #        p = subprocess.Popen(['./dijkstras'], stdin=subprocess.PIPE, stdout=subprocess.PIPE)
 #        d = [map(int, line.split()) for line in p.communicate(data)[0].splitlines()]
 #        json.dump({'path': d[1:], 'cost': d[0]}, self.wfile)
+
+def processDijkstras(data):
+#    code here
+    print data
 
 def addFriends(data):
     first = True
@@ -78,21 +85,23 @@ def addFriends(data):
         
         string += "{\"source\":\"" + person + "\",\"target\":\"" + name + "\",\"type\":\"line\"}"
     
-    #CASE 1: APPENDING FILE: READ IN AND STRIP STRING, APPEND FRIENDS, CHECK FOR DUPLICATES
-    
-    #CASE 2: FILE DOESN'T EXIST: ADD [] BEFORE AND AFTER
-    
+    # CASE 1: FILE EXISTS
+    # APPENDING FILE: READ IN AND STRIP STRING, APPEND FRIENDS
     if os.path.exists("www/graph.txt"):
+        # Read in graph.txt
         f = open("www/graph.txt", "r+")
         data = f.read()
         data = ''.join(data.split())[:-1]
         f.close()
+        # Append graph.txt
         f = open("www/graph.txt", "w+")
         f.truncate()
         f.write(data + "," + string + "]")
         f.close()
-        #should de-duplicate
+        # de-duplicating occurs in the forEach function
     else:
+        # CASE 2: FILE DOESN'T EXIST
+        # ADD "[" "]" BEFORE AND AFTER
         f = open("www/graph.txt", "w+")
         f.write("[" + string + "]")
         f.close()

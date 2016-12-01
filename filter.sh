@@ -4,4 +4,4 @@
 #                     $1 ~ "last_name" {print $2} 
 #                     $1 ~ "id" {print $2}' | sed 's/["]//g' | sed 's/[,]//g' | head -n -1
 
-cat graph.txt | sed 's/[:"{}\,]/ /g'
+cat www/graph.txt | sed 's/[:"{}\,]/ /g'
