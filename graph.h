@@ -2,28 +2,41 @@
 #include<vector>
 #include<map>
 #include<string>
-#include"node.h"
+#include"edge.h"
 using namespace std;
 
 struct Graph {
     //map of person ID's to a vector of pointers to connected nodes
-    map<string, vector<node*> > adjacencyList;  
+    map<string, vector<edge*> > adjacencyList;  
 
-    Graph() {
-	string Name_First;
-	string Name_Last;
-	string ID;
-	while(cin >> Name_First) {
-	    cin >> Name_Last;
-	    cin >> ID;
-	    adjacencyList["X"].push_back(new node(Name_First, Name_Last, ID));
-	    adjacencyList[ID].push_back(new node("First", "Last", "X"));
+    /*Graph() {
+	string source;
+	string target;
+	while(cin >> source) {
+	    cin >> target;
+	    adjacencyList[source].push_back(new edge(source, target, false));
+	    adjacencyList[target].push_back(new edge(target, source, false));
 	}
+    }*/
+    void add(string source, string target) {
+	adjacencyList[source].push_back(new edge(source, target, false));
+	adjacencyList[target].push_back(new edge(target, source, false));
     }
-    void display() {
-	for(auto it = adjacencyList.begin(); it !=adjacencyList.end(); ++it) {
-	    cout << it->first << "     " << it->second[0]->firstName << endl;
+    
+    void write() {
+	string lineType;
+	cout << "[";
+	for(pair<string, vector<edge*> > edgeList : adjacencyList) {
+	    for(edge* E : edgeList.second) {
+		lineType = (E->type) ? "bold" : "line";
+		cout << "{\"source\":\"" << E->source;
+		cout << "\",\"target\":\"" << E->target;
+		cout << "\",\"type\":\"" << lineType << "\"},";
+	    }
 	}
+	cout << "]" << endl;
     }
 };
+
+//{"source":"Troy","target":"Travis","type":"line"}
 
