@@ -53,7 +53,6 @@ class WWWHandler(BaseHTTPRequestHandler):
         if (data[0] == 'f' and data[7] == ':'):
             addFriends(data)
         elif (data[0] == 'p' and data[3] == 'h'):
-            print "inside path function"
             d_input = processDijkstrasInput(data)
             p = subprocess.Popen(['./dijkstras'], stdin=subprocess.PIPE, stdout=subprocess.PIPE)
             d = p.communicate(d_input)[0]
@@ -70,9 +69,6 @@ class WWWHandler(BaseHTTPRequestHandler):
 #        p = subprocess.Popen(['./dijkstras'], stdin=subprocess.PIPE, stdout=subprocess.PIPE)
 #        d = [map(int, line.split()) for line in p.communicate(data)[0].splitlines()]
 #        json.dump({'path': d[1:], 'cost': d[0]}, self.wfile)
-
-def processDijkstrasOutput(d):
-    print "d is: " + d
 
 def processDijkstrasInput(data):
     first = True
@@ -108,8 +104,7 @@ def addFriends(data):
         data = ''.join(data.split())[:-1]
         f.close()
         # Append graph.txt
-        f = open("www/graph.txt", "w+")
-        f.truncate()
+        f = open("www/graph.txt", "w")
         f.write(data + "," + string + "]")
         f.close()
         # de-duplicating occurs in the forEach function

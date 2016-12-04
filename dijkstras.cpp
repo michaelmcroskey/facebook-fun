@@ -90,6 +90,8 @@ int main(int argc, char *argv[]) {
 	
 	ofstream rewrite;
 	rewrite.open("www/graph.txt");
+	
+	cout << A.write();
 
 	if(rewrite.is_open()){
 		rewrite << A.write();            
