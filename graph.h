@@ -22,7 +22,7 @@ struct Graph {
     }*/
     void add(string source, string target, string type) {
 	if(search_for_Node(source, target)) return;
-	assert(search_for_Node(target, source));// && "Error because the path was not stored multi-directionally"); 
+//	assert(search_for_Node(target, source));// && "Error because the path was not stored multi-directionally"); 
 		bool lineType;
 		if (type == "line") lineType = false;
 		else lineType = true;
