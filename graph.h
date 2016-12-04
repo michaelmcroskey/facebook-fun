@@ -26,6 +26,13 @@ struct Graph {
 		adjacencyList[source].push_back(new edge(source, target, lineType));
 		adjacencyList[target].push_back(new edge(target, source, lineType));
     }
+
+	bool search_for(string source) {
+			if (adjacencyList.find(source) != adjacencyList.end())
+				return true;
+			else
+				return false;
+	    }
     
     std::string write() {
 		string result;

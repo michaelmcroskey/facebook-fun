@@ -103,15 +103,7 @@
 	             xhr.open('POST', 'http://localhost:9001', true);
 	             xhr.send(friends.join('\n'));
 	             console.log(friends)
-	             
-/*
-	             xhr.onreadystatechange = function() {
-	               if (xhr.readyState == 4 && xhr.status == 200) {
-	                   var data = JSON.parse(xhr.responseText);
-	                   console.log(xhr.responseText);
-	               }
-	           };
-*/
+
 	           }
 	         );
 	       }, {scope: 'public_profile,email,user_friends'});
@@ -161,27 +153,20 @@
 			<!--         </div> -->
 		</div>
 		
-<!--
-		<div class="ui-widget">
-			<input id="search">
-			<button type="button" onclick="searchNode()">Search</button>
-		</div>
--->
-		
 		<div id="choose_nodes" class="row marketing" style="visibility: hidden;">
 			<form action="javascript:void(0);" id="frm1">
 				<div class="col-lg-5">
 					<h4 style="text-align: center; margin:auto;">Start Node</h4>
-						<input id="start" type="text" name="StartNode" value="Troy">
+						<input id="start" type="text" name="StartNode" value="Shreya">
 				</div>
 	
 				<div class="col-lg-5">
 					<h4 style="text-align: center; margin:auto;">End Node</h4>
-						<input id="end" type="text" name="StartNode" value="Brittany">
+						<input id="end" type="text" name="EndNode" value="Rich">
 				</div>
 				<div class="col-lg-2">
 					<p style="margin-top:30px;">
-						<a class="btn btn-lg btn-green" href="#" id="bigAssButton" onclick="nodeForm()">GO</a>
+						<a class="btn btn-lg btn-green" href="#" id="bigAssButton" onclick="nodeForm(this); return false">GO</a>
 					</p>
 				</div>
 			</form>
@@ -205,6 +190,21 @@
 		    
 		    console.log(text);
 		    document.getElementById("graph").style.visibility = "visible";
+
+			xhr.onload = function() {
+               if (xhr.readyState == 4 && xhr.status == 200) {
+					var data = xhr.responseText
+					console.log(data);
+					if (data[0] == 'S'){
+//						location.reload(true);
+						console.log("YAY IT WORKED");
+					} else if (data[0] == 'E') {
+						// do something with data here
+						console.log("THERE MUST'VE BEEN AN ERROR");
+					}
+               }
+           };
+			
 		}
 		</script>
 		
@@ -215,8 +215,8 @@
 
 		function readTextFile(file){
 		    var rawFile = new XMLHttpRequest();
-		    rawFile.open("GET", file, false);
-		    rawFile.onreadystatechange = function (){
+		    rawFile.open("GET", file, true);
+		    rawFile.onload = function (){
 		        if(rawFile.readyState === 4){
 		            if(rawFile.status === 200 || rawFile.status == 0){
 		                var allText = rawFile.responseText;

@@ -4,7 +4,7 @@ from BaseHTTPServer import BaseHTTPRequestHandler, HTTPServer
 from SocketServer   import ForkingMixIn
 
 import getopt, json, logging, mimetypes
-import os, subprocess, sys, facebook, requests
+import os, subprocess, sys
 
 # Constants
 
@@ -46,29 +46,40 @@ class WWWHandler(BaseHTTPRequestHandler):
     def do_POST(self):
         data = self.rfile.read(int(self.headers.getheader('content-length')))
         self.send_response(200)
-        self.send_header('Content-type', 'application/json')
+        self.send_header('Content-type', 'text/html')
         self.end_headers()
         
         # if data is friends list
         if (data[0] == 'f' and data[7] == ':'):
             addFriends(data)
         elif (data[0] == 'p' and data[3] == 'h'):
-            processDijkstras(data)
-#        # if data is start and end node
-#        if (data[0] == 'f' and data[7] == ':'):
-#            addFriends(data)
-
+            print "inside path function"
+            d_input = processDijkstrasInput(data)
+            p = subprocess.Popen(['./dijkstras'], stdin=subprocess.PIPE, stdout=subprocess.PIPE)
+            d = p.communicate(d_input)[0]
+            try:
+                if (d[0] == 'E'):
+                    self.wfile.write(d)
+                    print "Dijkstras found an input error: " + d
+                elif (d[0] == 'S'):
+                    self.wfile.write(d)
+                    print d
+            except:
+                print "Exception"
         
 #        p = subprocess.Popen(['./dijkstras'], stdin=subprocess.PIPE, stdout=subprocess.PIPE)
 #        d = [map(int, line.split()) for line in p.communicate(data)[0].splitlines()]
 #        json.dump({'path': d[1:], 'cost': d[0]}, self.wfile)
 
-def processDijkstras(data):
+def processDijkstrasOutput(d):
+    print "d is: " + d
+
+def processDijkstrasInput(data):
     first = True
     string = ""
     nodes = data.split('\n')
     string = nodes[1] + " " + nodes[2]
-    print string
+    return string
 
 def addFriends(data):
     first = True
