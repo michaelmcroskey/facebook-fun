@@ -93,21 +93,25 @@ def addFriends(data):
         name = friend.split(",")[0].split(" ")[0]
         f_id = friend.split(",")[1]
         
+        print person + name
+        
         string += "{\"source\":\"" + person + "\",\"target\":\"" + name + "\",\"type\":\"line\"}"
     
     # CASE 1: FILE EXISTS
     # APPENDING FILE: READ IN AND STRIP STRING, APPEND FRIENDS
     if os.path.exists("www/graph.txt"):
         # Read in graph.txt
-        f = open("www/graph.txt", "r+")
+        f = open("www/graph.txt", "r")
         data = f.read()
-        data = ''.join(data.split())[:-1]
+        data = ''.join(data.split())[:-1] # strip whitespace
         f.close()
         # Append graph.txt
         f = open("www/graph.txt", "w")
         f.write(data + "," + string + "]")
+        print "wer gunna right:"
+        print data + "," + string + "]"
         f.close()
-        # de-duplicating occurs in the forEach function
+        # de-duplicating occurs in the Javascript forEach function?
     else:
         # CASE 2: FILE DOESN'T EXIST
         # ADD "[" "]" BEFORE AND AFTER

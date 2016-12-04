@@ -89,12 +89,10 @@ int main(int argc, char *argv[]) {
 	// RE-WRITE FILE WITH BOLD LINKS----------------
 	
 	ofstream rewrite;
-	rewrite.open("www/graph.txt");
-	
-	cout << A.write();
+	rewrite.open("www/graph.txt", std::ofstream::trunc);
 
 	if(rewrite.is_open()){
-		rewrite << A.write();            
+		rewrite << A.write();     
 	}
 	rewrite.close();
 	
