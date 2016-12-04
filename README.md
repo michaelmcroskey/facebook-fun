@@ -58,8 +58,23 @@ When you are ready to close the virtual environment, you can do so with:
 
 *You can login to Facebook with these people on [www.facebook.com](http://www.facebook.com/) and verify their friends are correctly connected. However, the included `graph.txt` should already have a pre-built network based on test profiles of the London Data Structures section.*
 
+Explain how signing in with one person will first build initial nodes, signing in with next, ... slowly building social network
+Sign out?!
+
 5. To check if two people are friends or how many degrees away they are from each other, type a first name into the 'Start Node' field and another first name into the 'End Node' field and click 'GO'.
 6. If a path exists, the webpage will generate a graph highlighting the edges between the specified nodes within a larger social network.
+
+----
+## Benchmarking
+
+
+----
+## Known Issues
+As any good programming team would do, we wanted to highlight some known issues to prevent confusion about certain aspects of the program.
+
+1. Signing out
+2. Duplicated data in graph.txt - but explain why this is fine
+3. Really only works with a limited amount of users...best in a test environment
 
 
 ----
