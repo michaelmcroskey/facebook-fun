@@ -92,7 +92,7 @@ int main(int argc, char *argv[]) {
 	rewrite.open("www/graph.txt", std::ofstream::trunc);
 
 	if(rewrite.is_open()){
-		rewrite << A.write();     
+		rewrite << A.write();
 	}
 	rewrite.close();
 	
