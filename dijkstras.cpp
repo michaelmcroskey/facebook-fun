@@ -6,8 +6,10 @@
 #include <sstream>
 #include <string>
 #include "graph.h"
+#include <memory>
+using namespace std;
 
-std::string exec(const char* cmd) {
+string exec(const char* cmd) {
 	char buffer[128];
 	std::string result = "";
 	std::shared_ptr<FILE> pipe(popen(cmd, "r"), pclose);
@@ -19,7 +21,7 @@ std::string exec(const char* cmd) {
 	return result;
 }
 
-using namespace std;
+
 int main(int argc, char *argv[]) {
 	
 	// INPUT GRAPH FILE-----------------------------
@@ -84,7 +86,7 @@ int main(int argc, char *argv[]) {
 		
 	// PERFORM DIJSKTRAS----------------------------
 	
-	A.prims();
+	A.shortestPath("Tristan", "Michael");
 	
 	cout << "SUCCESS";
 	
