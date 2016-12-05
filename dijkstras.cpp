@@ -84,6 +84,8 @@ int main(int argc, char *argv[]) {
 		
 	// PERFORM DIJSKTRAS----------------------------
 	
+	A.prims();
+	
 	cout << "SUCCESS";
 	
 	// RE-WRITE FILE WITH BOLD LINKS----------------

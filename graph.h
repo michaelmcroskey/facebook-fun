@@ -84,11 +84,15 @@ struct Graph {
         addEdgesToF(E->target);//, F);  //begin with first in graph
         marked[E->target] = E->source;
         //loop until all nodes have been acounted for
+        int i = 0;
         while(marked.size() < N) {
+            i++;
+            if (i>1000) break;
             //pop from frontier, pass over if its been recahed already
             E = F.top();
             F.pop();
             if(marked.find(E->target) != marked.end()) continue;
+
 
 	    adjacencyList[E->source][search_for_Node(E->source, E->target)]->type = 1;
             marked[E->target] = E->source;  //add to marked
@@ -96,7 +100,7 @@ struct Graph {
             dist += E->v;  //increment distance
         }
         //display
-        cout << dist;
+//        cout << dist;
         //display(marked);
 
         marked.clear();//clear marked

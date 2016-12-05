@@ -332,31 +332,6 @@
 	</script> 
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js">
 	</script> 
-	<script>
 
-	   function post(row, col) {
-	           console.log('Fetching paths to (' + row + ', ' + col + ')');
-	           var xhr = new XMLHttpRequest();
-	           xhr.open('post', 'http://localhost:9001', true);
-
-	       var response = [];
-	       response.push('hello')
-	       response.push('test')
-	       
-	           xhr.send(response.join('\n'));
-
-	       xhr.onreadystatechange = function() {
-	           if (xhr.readyState == 4 && xhr.status == 200) {
-	                   var data = JSON.parse(xhr.responseText);
-	                   console.log(xhr.responseText);
-	           }
-	       };
-	   }
-
-	//    window.onload = function() {
-	//      var btn = document.getElementById('jumbotron');
-	//        btn.onclick = post(5,4);
-	//    }
-	</script>
 </body>
 </html>
