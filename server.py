@@ -66,10 +66,6 @@ class WWWHandler(BaseHTTPRequestHandler):
             except:
                 self.wfile.write("Error: No friends in common.")
                 print "Exception"
-        
-#        p = subprocess.Popen(['./dijkstras'], stdin=subprocess.PIPE, stdout=subprocess.PIPE)
-#        d = [map(int, line.split()) for line in p.communicate(data)[0].splitlines()]
-#        json.dump({'path': d[1:], 'cost': d[0]}, self.wfile)
 
 def processDijkstrasInput(data):
     first = True

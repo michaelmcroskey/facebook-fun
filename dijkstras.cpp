@@ -21,7 +21,6 @@ string exec(const char* cmd) {
 	return result;
 }
 
-
 int main(int argc, char *argv[]) {
 	
 	// INPUT GRAPH FILE-----------------------------
@@ -99,6 +98,4 @@ int main(int argc, char *argv[]) {
 		rewrite << A.write();
 	}
 	rewrite.close();
-	
-	
 }
