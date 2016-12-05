@@ -11,7 +11,7 @@ using namespace std;
 struct Graph {
     //map of person ID's to a vector of pointers to connected nodes
     map<string, vector<edge*> > adjacencyList;  
-    priority_queue<edge*> F;
+    priority_queue<edge*, vector<edge*>, PEdgeCost> F;
     map<string, string> marked;
     /*Graph() {
 	string source;
@@ -27,11 +27,11 @@ struct Graph {
 //	assert(search_for_Node(target, source));// && "Error because the path was not stored multi-directionally")
 	if(search_for_Node(source, target) != -1) return;
 	//assert(search_for_Node(target, source));// && "Error because the path was not stored multi-directionally"); 
-		bool lineType;
-		if (type == "line") lineType = false;
-		else lineType = true;
-		adjacencyList[source].push_back(new edge(source, target, lineType));
-		adjacencyList[target].push_back(new edge(target, source, lineType));
+	//bool lineType;
+	//	if (type == "line") lineType = false;
+	//	else lineType = true;
+		adjacencyList[source].push_back(new edge(source, target, false));
+		adjacencyList[target].push_back(new edge(target, source, false));
     }
 
     bool search_for(string source) {
@@ -100,27 +100,24 @@ struct Graph {
             addEdgesToF(E->target); //add this nodes edges to frontier
             dist += E->v;  //increment distance
         }
-        //display
-//        cout << dist;
-        //display(marked);
 
-	//clear marked and F
+	//clear marked and f
         marked.clear();
-	F = priority_queue<edge*>();
+	F = priority_queue<edge*, vector<edge*>, PEdgeCost>();
 
     }
    
     void shortestPath(string start, string end) {
       
         int dist=0;  //reset distance
-        addEdgesToF(start);//, F);  //begin with first in graph
-        //marked[E->target] = E->source;
+        addEdgesToF(start); //begin start
+
         //loop until you find the desired value
         int i = 0;
-        while(1) {//marked.size() < N) {
+        while(1) {
             i++;
             ///cout << i << endl;
-            if (i>100) break;
+            if (i>200) break;
 
             //pop from frontier, pass over if its been recahed already
 	    if (F.empty()) break;
@@ -130,7 +127,6 @@ struct Graph {
 
 	    //cout << E->source << " " << E->target << endl;
 	    //E->type = 1;
-            //adjacencyList[E->source][search_for_Node(E->source, E->target)]->type = 1;
             marked[E->target] = E->source;  //add to marked
 	    if(E->target == end) break;
 
@@ -146,13 +142,10 @@ struct Graph {
 	    adjacencyList[end][search_for_Node(end, marked[end])]->type = 1;
 	    end = marked[end];
 	}
-        //display
-	//        cout << dist;
-        //display(marked);
 
         //clear marked and F
         marked.clear();
-        F = priority_queue<edge*>();
+        F = priority_queue<edge*, vector<edge*>, PEdgeCost>();
     }
 
     //adds edges of a node to the frontier
@@ -161,12 +154,6 @@ struct Graph {
 	    F.push(E);
 	    
 	}
-
-    //size_t j = sz(Node);
-    //for(size_t i=0; i<G.size(); ++i) {
-        //if(G[i][j] != -1) {
-    //      F.push(edge(G[i][j], i, j));
-    //  }
     
     }
 
