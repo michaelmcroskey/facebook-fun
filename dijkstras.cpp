@@ -86,7 +86,7 @@ int main(int argc, char *argv[]) {
 		
 	// PERFORM DIJSKTRAS----------------------------
 	
-	A.shortestPath("Tristan", "Michael");
+	A.shortestPath(friend_1, friend_2);
 	
 	cout << "SUCCESS";
 	

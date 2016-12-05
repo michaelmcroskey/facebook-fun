@@ -64,6 +64,7 @@ class WWWHandler(BaseHTTPRequestHandler):
                     self.wfile.write(d)
                     print d
             except:
+                self.wfile.write("Error: No friends in common.")
                 print "Exception"
         
 #        p = subprocess.Popen(['./dijkstras'], stdin=subprocess.PIPE, stdout=subprocess.PIPE)
