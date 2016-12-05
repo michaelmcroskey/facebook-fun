@@ -1,11 +1,11 @@
 CXX=		g++
 CXXFLAGS=	-g -Wall -std=gnu++11
 SHELL=		bash
-PROGRAMS=	main
+PROGRAMS=	dijkstras
 
-all:		main
+all:		dijkstras
 
-main:	main.cpp
+dijkstras:	dijkstras.cpp
 	$(CXX) $(CXXFLAGS) -o $@ $^
 
 clean:
@@ -28,9 +28,9 @@ clean:
 #	@diff --suppress-common-lines -y <(./src/dijkstras < data/input3.txt | head -n 5) <(head -n 5 data/output3.txt)
 #	@diff --suppress-common-lines -y <(./src/dijkstras < data/input3.txt | tail -n 5) <(tail -n 5 data/output3.txt)
 
-#test-memory:	main
+#test-memory:	dijkstras
 #	@echo Testing memory...
-#	@[ `valgrind --leak-check=full ./main < data/input1.txt 2>&1 | grep ERROR | awk '{print $$4}'` = 0 ]
+#	@[ `valgrind --leak-check=full ./dijkstras < data/input1.txt 2>&1 | grep ERROR | awk '{print $$4}'` = 0 ]
 
 #test-time:	$(PROGRAMS)
 #	@echo Testing time...
