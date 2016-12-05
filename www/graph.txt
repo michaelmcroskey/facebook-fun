@@ -1,1 +1,1 @@
-[{"source":"Collin","target":"Kim","type":"line"},{"source":"Collin","target":"Shreya","type":"bold"},{"source":"Kim","target":"Collin","type":"line"},{"source":"Shreya","target":"Collin","type":"line"}]
+[{"source":"Collin","target":"Kim","type":"line"},{"source":"Collin","target":"Shreya","type":"bold"},{"source":"Kim","target":"Collin","type":"line"},{"source":"Shreya","target":"Collin","type":"bold"}]
