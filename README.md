@@ -89,6 +89,16 @@ As any good programming team would do, we wanted to highlight some known issues 
 2. Duplicated data in graph.txt - but explain why this is fine
 3. Really only works with a limited amount of users...best in a test environment
 
+----
+
+Contributions
+=============
+
+Michael McRoskey:
+
+David Mellitt: Debugging, benchmarking
+
+Troy Prince:
 
 ----
 ## markdown quick reference
