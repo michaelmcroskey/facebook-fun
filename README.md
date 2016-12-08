@@ -22,25 +22,6 @@ Facebook Fun is a project which collects Facebook friend data from users to cons
 9. **`README.md`**:
 10. **`CONTRIBUTIONS.md`**: 
 
-
-----
-## Dependencies
-Our project requires the [Facebook Graph API](https://developers.facebook.com/docs/graph-api) which we did not include in the root directory since we run it in a virtual environment via [VirtualENV](http://docs.python-guide.org/en/latest/dev/virtualenvs/). To properly set up the environment, please fork the repository and then follow these steps:
-
-	$ pip install virtualenv
-	$ cd facebook-fun
-	$ virtualenv -p /usr/bin/python2.7 facebookenv
-	$ source facebookenv/bin/activate
-	$ pip install requests
-	$ pip install facebook-sdk
-
-This allows the `import facebook` line in `server.py` to properly execute. (wait but actually isn't everything through the javascript SDK?) 
-
-When you are ready to close the virtual environment, you can do so with:
-
-	$ deactivate
-
-
 ----
 ## Usage
 1. Run `$ make` to build the executables.
@@ -64,6 +45,8 @@ Sign out?!
 5. To check if two people are friends or how many degrees away they are from each other, type a first name into the 'Start Node' field and another first name into the 'End Node' field and click 'GO'.
 6. If a path exists, the webpage will generate a graph highlighting the edges between the specified nodes within a larger social network.
 
+
+
 ----
 ## Benchmarking
 
@@ -81,24 +64,27 @@ Using makeFriends.sh to create input files, we ran measure on testGraph.cpp, a m
 | 150           | 0.002746      | 0.921875       |
 |---------------|---------------|----------------|
 
+
+[Benchmarked with 150 nodes!](http://imgur.com/a/jaZyP)
+
 ----
 ## Known Issues
 As any good programming team would do, we wanted to highlight some known issues to prevent confusion about certain aspects of the program.
 
-1. Signing out
-2. Duplicated data in graph.txt - but explain why this is fine
-3. Really only works with a limited amount of users...best in a test environment
+1. Signing out - we have no function to sign out. Users must open a new Facebook tab and sign out through their interface.
+2. It really only works with a limited amount of users because of Facebook's API which restricts information sent to us--we are only allowed access to friends who have also authorized the app.
+
 
 ----
 
 Contributions
 =============
 
-Michael McRoskey:
+Michael McRoskey: Python server and Javascript implementation
 
 David Mellitt: Debugging, benchmarking
 
-Troy Prince:
+Troy Prince: s
 
 ----
 ## markdown quick reference
