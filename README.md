@@ -69,17 +69,17 @@ Sign out?!
 
 Using makeFriends.sh to create input files, we ran measure on testGraph.cpp, a more input friendly version of dijkstras.cpp. testGraph takes input as "source target" instead of the JSON file and creates an undirected edge.
 
-| People        | Elapsed Time  | Memory Usage   |
-|---------------|---------------|----------------|
-| 10            | 0.001530      | 0.835938       |
-| 30            | 0.001721      | 0.843750       |
-| 50            | 0.001957      | 0.875000       |
-| 70            | 0.002125      | 0.882812       |
-| 90            | 0.002236      | 0.898438       |
-| 110           | 0.002362      | 0.902344       |
-| 130           | 0.002687      | 0.914062       |
-| 150           | 0.002746      | 0.921875       |
-|---------------|---------------|----------------|
+| People        | Elapsed Time   | Memory Usage     |
+|---------------|----------------|------------------|
+| 10            |  0.001411      |   0.835938       |
+| 100           |  0.002383      |   0.878750       |
+| 1000          |  0.010753      |   1.300781       |
+| 10000         |  0.104035      |   5.682812       |
+| 100000        |  1.045944      |  45.570312       |
+| 1000000       | 11.411662      | 519.390625       |
+|---------------|----------------|------------------|
+
+Memory usage was proportional to nodes, which was expected. The elapsed time also seemed to grow proportional to nodes, although Dijkstra's is O(n^2). It helps that the algorithm stops once target is found.
 
 ----
 ## Known Issues

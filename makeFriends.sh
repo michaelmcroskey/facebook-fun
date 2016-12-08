@@ -1,6 +1,6 @@
 #!/bin/bash
 
-N=130
+N=1000000
 
 src=$(( $RANDOM % $N ))
 trg=$(( $RANDOM % $N ))
