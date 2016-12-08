@@ -9,57 +9,46 @@
 #include <memory>
 using namespace std;
 
-string exec(const char* cmd) {
-	char buffer[128];
-	std::string result = "";
-	std::shared_ptr<FILE> pipe(popen(cmd, "r"), pclose);
-	if (!pipe) throw std::runtime_error("popen() failed!");
-	while (!feof(pipe.get())) {
-		if (fgets(buffer, 128, pipe.get()) != NULL)
-			result += buffer;
-	}
-	return result;
-}
-
 int main(int argc, char *argv[]) {
 	
 	// INPUT GRAPH FILE-----------------------------
 	
-	ifstream infile; 
-	infile.open("www/graph.txt");
-	string line;
-	Graph A;
+	//ifstream infile; 
+	//infile.open("www/graph.txt");
+    string source, target;
+    Graph A;
+    string inputFile;
+    //cout << "What is the name of the input file?" << endl;
+    //cin >> inputFile;
+    //ifstream infile;
+    //infile.open(inputFile);
+
+    string friend_1, friend_2;
+    cin >> friend_1 >> friend_2;
+
 	
-	if (infile.is_open()){
-		while (getline(infile, line)){
-			string parsed = exec("./filter.sh");
-			parsed.erase(0,1);
-			parsed.pop_back();
-			
-			stringstream ss(parsed);
-			string dump, source, target, type;
-			while (ss >> dump >> source >> dump >> target >> dump >> type){
-				A.add(source, target, type);
-			}
-		}
-		infile.close();
-	}
+    while(cin >> source) {
+	cin >> target;
 	
+	A.add(source, target, "line");
+   
+    }
+    //infile.close();
 	// INPUT FRIENDS TO SEARCH----------------------
-		
-	string friend_1, friend_2;
-	cin >> friend_1 >> friend_2;
+    
+    //string friend_1, friend_2;
+    //cin >> friend_1 >> friend_2;
 	
 	// Return error if incorrect input (doesn't exist or same person)
 	
-	string error = "SUCCESS";
+    string error = "SUCCESS";
 	
-	if (friend_1 == friend_2){
-		string same_person = "Error: " + friend_1 + " is the same person";
-		error = same_person;
-		cout << error;
-		return 0;
-	}
+    if (friend_1 == friend_2){
+	string same_person = "Error: " + friend_1 + " is the same person";
+	error = same_person;
+	cout << error;
+	return 0;
+    }
 		
 	if (A.search_for(friend_1)){
 		// Found friend_1
@@ -92,7 +81,7 @@ int main(int argc, char *argv[]) {
 	// RE-WRITE FILE WITH BOLD LINKS----------------
 	
 	ofstream rewrite;
-	rewrite.open("www/graph.txt", std::ofstream::trunc);
+	rewrite.open("www/graphTest.txt", std::ofstream::trunc);
 
 	if(rewrite.is_open()){
 		rewrite << A.write();
