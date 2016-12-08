@@ -67,7 +67,7 @@ Sign out?!
 ----
 ## Benchmarking
 
-Using makeFriends.sh to create input files, we ran measure on testGraph.cpp, a more input friendly version of dijkstras.cpp. testGraph takes input as "source target" and creates an undirected edge instead of the JSON file.
+Using makeFriends.sh to create input files, we ran measure on testGraph.cpp, a more input friendly version of dijkstras.cpp. testGraph takes input as "source target" instead of the JSON file and creates an undirected edge.
 
 | People        | Elapsed Time  | Memory Usage   |
 |---------------|---------------|----------------|
