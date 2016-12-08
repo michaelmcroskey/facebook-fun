@@ -73,6 +73,7 @@ As any good programming team would do, we wanted to highlight some known issues 
 
 1. Signing out - we have no function to sign out. Users must open a new Facebook tab and sign out through their interface.
 2. It really only works with a limited amount of users because of Facebook's API which restricts information sent to us--we are only allowed access to friends who have also authorized the app.
+3. As of now, the most inputs the program can take is 1000000 because that is the number of iterations dijkstras runs through before determining that two nodes are not connected (otherwise when two nodes are not connected there would be an infinite loop). 
 
 
 ----
