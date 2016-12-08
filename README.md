@@ -67,6 +67,19 @@ Sign out?!
 ----
 ## Benchmarking
 
+Using makeFriends.sh to create input files, we ran measure on testGraph.cpp, a more input friendly version of dijkstras.cpp. testGraph takes input as "source target" instead of the JSON file and creates an undirected edge.
+
+| People        | Elapsed Time  | Memory Usage   |
+|---------------|---------------|----------------|
+| 10            | 0.001530      | 0.835938       |
+| 30            | 0.001721      | 0.843750       |
+| 50            | 0.001957      | 0.875000       |
+| 70            | 0.002125      | 0.882812       |
+| 90            | 0.002236      | 0.898438       |
+| 110           | 0.002362      | 0.902344       |
+| 130           | 0.002687      | 0.914062       |
+| 150           | 0.002746      | 0.921875       |
+|---------------|---------------|----------------|
 
 ----
 ## Known Issues
@@ -76,6 +89,16 @@ As any good programming team would do, we wanted to highlight some known issues 
 2. Duplicated data in graph.txt - but explain why this is fine
 3. Really only works with a limited amount of users...best in a test environment
 
+----
+
+Contributions
+=============
+
+Michael McRoskey:
+
+David Mellitt: Debugging, benchmarking
+
+Troy Prince:
 
 ----
 ## markdown quick reference
