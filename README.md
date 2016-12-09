@@ -2,7 +2,7 @@
 Michael McRoskey (mmcrosk1), David Mellitt (dmellitt), Troy Prince (tprince)
 
 [CHECK OUT THE DEMO VIDEO!](https://www.youtube.com/watch?v=GIUmYVA717M)
-![](3d-graph.png)
+![](images/3d-graph.png)
 
 ----
 ## Overview
@@ -12,18 +12,26 @@ Facebook Fun is a project which collects Facebook friend data from users to cons
 ## Files
 1. **`server.py`**: This contains the script to process and handle server requests on `localhost:9001`. It loads `index.html` as the default page in a web browser.
 2. **`Makefile`**: Running the command `make` in this directory will properly compile all the executables for the project.
-3. **`dikjstras.cpp`**: This 
-4. **`edge.h`**:
-5. **`node.h`**:
-6. **`graph.h`**:
-7. benchmarks
-	* **`test.cpp`**:
+3. **`dikjstras.cpp`**: Performs the shortest path between nodes in graph 
+4. **`edge.h`**: Header file for edge definitions
+5. **`node.h`**: Header file for nodes inside graph
+6. **`graph.h`**: Header file for graph definition
+7. test
+	* **`makeFriends.sh`**: Makes the friend pairs that get inputted into `testGraph.cpp`
+	* **`measure`**: Measures time and memory
+	* **`testGraph`**: Executable for `testGraph.cpp`
+	* Several input files
 8. www
-	* **`index.html`**:
-	* **`style.css`**:
-	* **`graph.txt`**:
-9. **`README.md`**:
-10. **`CONTRIBUTIONS.md`**: 
+	* **`index.html`**: HTML for web page
+	* **`style.css`**: CSS styling for web page
+	* **`graph.txt`**: The graph that gets plotted
+	* **`graph-random.txt`**: A randomly generated graph file
+9. images
+    * **`3d-graph.png`**: example photo of graph
+	* **`large-graph.png`**: example of a large graph in interface
+10. **`requirements.txt`**: Python environment requirements
+10. **`README.md`**
+11. **`CONTRIBUTIONS.md`**
 
 ----
 ## Usage
@@ -66,14 +74,13 @@ Using makeFriends.sh to create input files, we ran measure on testGraph.cpp, a m
 | 10000         |  0.104035      |   5.682812       |
 | 100000        |  1.045944      |  45.570312       |
 | 1000000       | 11.411662      | 519.390625       |
-|---------------|----------------|------------------|
 
-Memory usage was proportional to nodes, which was expected. The elapsed time also seemed to grow proportional to nodes, although Dijkstra's is O(n^2). It helps that the algorithm stops once target is found.
+Memory usage was proportional to nodes, which was expected. The elapsed time also seemed to grow proportional to nodes, although Dijkstra's is O(n^2 ). It helps that the algorithm stops once target is found.
 
 *Note: we deleted the largest two sample input files because of their size.*
 
 [Benchmarked with 150 nodes!](http://imgur.com/a/jaZyP)
-![](large-graph.jpg)
+![](images/large-graph.jpg)
 
 ----
 ## Known Issues
