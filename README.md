@@ -2,6 +2,7 @@
 Michael McRoskey (mmcrosk1), David Mellitt (dmellitt), Troy Prince (tprince)
 
 [CHECK OUT THE DEMO VIDEO!](https://www.youtube.com/watch?v=GIUmYVA717M)
+![](3d-graph.jpg)
 
 ----
 ## Overview
