@@ -72,6 +72,7 @@ Memory usage was proportional to nodes, which was expected. The elapsed time als
 *Note: we deleted the largest two sample input files because of their size.*
 
 [Benchmarked with 150 nodes!](http://imgur.com/a/jaZyP)
+![](large-graph.jpg)
 
 ----
 ## Known Issues
