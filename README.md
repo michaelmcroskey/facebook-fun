@@ -11,7 +11,7 @@ Facebook Fun is a project which collects Facebook friend data from users to cons
 ----
 ## Files
 1. **`server.py`**: This contains the script to process and handle server requests on `localhost:9001`. It loads `index.html` as the default page in a web browser.
-2. **`Makefile`**: Running the command `make` in this directory will properly compile all the executables for the project.
+2. **`Makefile`**: Running the command `make` in this directory will properly compile `dijkstras.cpp`
 3. **`dikjstras.cpp`**: Performs the shortest path between nodes in graph 
 4. **`edge.h`**: Header file for edge definitions
 5. **`node.h`**: Header file for nodes inside graph
@@ -30,8 +30,9 @@ Facebook Fun is a project which collects Facebook friend data from users to cons
     * **`3d-graph.png`**: example photo of graph
 	* **`large-graph.png`**: example of a large graph in interface
 10. **`requirements.txt`**: Python environment requirements
-10. **`README.md`**
-11. **`CONTRIBUTIONS.md`**
+11. **`testGraph.cpp`**: Testbench for testing performance of data structure
+12. **`README.md`**
+13. **`CONTRIBUTORS.md`**
 
 ----
 ## Usage
